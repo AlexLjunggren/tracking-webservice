@@ -24,12 +24,6 @@ public class WebservicePropertiesTest {
     }
     
     @Test
-    public void getFedexEnvironmentTest() {
-        FedexEnvironment environment = WebserviceProperties.getFedexEnvironment();
-        assertTrue(Arrays.asList(FedexEnvironment.values()).contains(environment));
-    }
-    
-    @Test
     public void getFileTmpDirectory() {
         String tmpDirectory = WebserviceProperties.getFileTmpDirectory();
         assertNotNull(tmpDirectory);
