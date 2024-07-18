@@ -1,0 +1,11 @@
+table tr td:first-child {
+	width: 150px;
+}
+
+td {
+	vertical-align: top;
+}
+
+#message {
+	display: none;
+}

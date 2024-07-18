@@ -1,0 +1,15 @@
+environment=production
+fedex.oauth.clientId=
+fedex.oauth.clientSecret=
+fedex.environment=
+ups.oauth.clientId=
+ups.oauth.clientSecret=
+ups.account.number=
+ups.environment=
+dhl.api.key=
+dhl.environment=
+usps.username=
+usps.environment=
+file.tmp.directory=
+file.output.directory=
+file.error.directory=
