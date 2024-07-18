@@ -36,6 +36,10 @@ public class WebserviceProperties {
         return WebserviceProperties.class.getResourceAsStream(INTERNAL_PROPERTIES_PATH);
     }
     
+    public static String getEnvironment() {
+        return properties.getProperty("environment");
+    }
+    
     public static String getFedexOauthClientId() {
         return properties.getProperty("fedex.oauth.clientId");
     }
@@ -85,6 +89,10 @@ public class WebserviceProperties {
     }
     public static String getFileErrorDirectory() {
         return properties.getProperty("file.error.directory");
+    }
+    
+    public static String getAnnouncementDirectory() {
+        return properties.getProperty("annoncemnet.directory");
     }
     
 }
