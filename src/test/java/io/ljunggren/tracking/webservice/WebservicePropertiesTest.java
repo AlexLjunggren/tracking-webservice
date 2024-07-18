@@ -1,12 +1,9 @@
 package io.ljunggren.tracking.webservice;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.assertj.core.util.Arrays;
 import org.junit.jupiter.api.Test;
 
-import io.ljunggren.fedex.api.FedexEnvironment;
 import io.ljunggren.tracking.webservice.property.WebserviceProperties;
 
 public class WebservicePropertiesTest {
