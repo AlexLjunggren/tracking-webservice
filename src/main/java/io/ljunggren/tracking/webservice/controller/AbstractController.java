@@ -1,5 +1,7 @@
 package io.ljunggren.tracking.webservice.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
@@ -10,6 +12,8 @@ import io.ljunggren.tracking.webservice.model.Message;
 
 public class AbstractController {
     
+    private static Logger logger = LoggerFactory.getLogger(AbstractController.class);
+
     private String generateResponse(Object object) throws JsonProcessingException {
         return JsonUtils.objectToJson(object);
     }
@@ -32,11 +36,13 @@ public class AbstractController {
     }
     
     protected ResponseEntity<String> badRequestResponse(String message) throws JsonProcessingException {
+        logger.warn(message);
         Message response = new Message(message);
         return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON).body(generateResponse(response));
     }
     
     protected ResponseEntity<String> errorResponse(String message) throws JsonProcessingException {
+        logger.error(message);
         Message response = new Message(message);
         return ResponseEntity.internalServerError().contentType(MediaType.APPLICATION_JSON).body(generateResponse(response));
     }
