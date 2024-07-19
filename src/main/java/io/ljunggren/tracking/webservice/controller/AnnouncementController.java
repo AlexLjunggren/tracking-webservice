@@ -14,7 +14,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import io.ljunggren.tracking.webservice.service.AnnouncementService;
 
 @RestController
-@RequestMapping("/api/announcement")
+@RequestMapping("/api/announcements")
 public class AnnouncementController extends AbstractController {
     
     @Autowired
