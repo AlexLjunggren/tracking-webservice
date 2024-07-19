@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,8 @@ import io.ljunggren.tracking.webservice.workflow.WorkflowData;
 @RequestMapping("/api/tracking")
 public class TrackingController extends AbstractController {
     
+    private static Logger logger = LoggerFactory.getLogger(TrackingController.class);
+
     @Autowired
     private ValidationService validationService;
     
@@ -142,6 +146,7 @@ public class TrackingController extends AbstractController {
     }
     
     private Service determineService(String trackingNumber) {
+        logger.info("Attempting to auto detect " + trackingNumber);
         if (trackingNumber == null) {
             return Service.UNKNOWN;
         }
