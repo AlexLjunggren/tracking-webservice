@@ -33,6 +33,7 @@ import io.ljunggren.tracking.webservice.service.UpsService;
 import io.ljunggren.tracking.webservice.service.UspsService;
 import io.ljunggren.tracking.webservice.service.ValidationService;
 import io.ljunggren.tracking.webservice.service.WorkflowService;
+import io.ljunggren.tracking.webservice.util.DhlUtils;
 import io.ljunggren.tracking.webservice.util.FedexUtils;
 import io.ljunggren.tracking.webservice.util.UpsUtils;
 import io.ljunggren.tracking.webservice.workflow.WorkflowData;
@@ -155,6 +156,9 @@ public class TrackingController extends AbstractController {
         }
         if (UpsUtils.isValidTrackingNumber(trackingNumber)) {
             return Service.UPS;
+        }
+        if (DhlUtils.isValidTrackingNumber(trackingNumber)) {
+            return Service.DHL;
         }
         return Service.UNKNOWN;
     }
