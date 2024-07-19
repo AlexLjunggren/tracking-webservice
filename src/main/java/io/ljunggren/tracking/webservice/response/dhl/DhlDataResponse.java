@@ -12,6 +12,7 @@ import io.ljunggren.dhl.api.response.TrackingResponse;
 import io.ljunggren.tracking.webservice.model.parcel.DhlParcel;
 import io.ljunggren.tracking.webservice.model.parcel.Parcel;
 import io.ljunggren.tracking.webservice.response.ResponseChain;
+import io.ljunggren.tracking.webservice.util.DhlUtils;
 
 public class DhlDataResponse extends ResponseChain {
 
@@ -48,21 +49,22 @@ public class DhlDataResponse extends ResponseChain {
             return;
         }
         List<ShipmentEvent> events = shipment.getEvents();
+        DhlUtils.sortShipmentEventsDesc(events);
         if (!CollectionUtils.isEmpty(events)) {
             setShipmentEventDetails(parcel, events.get(0));
             return;
         }
     }
     
-    private void setShipmentEventDetails(DhlParcel parcel, ShipmentEvent shipmentEvent) {
-        parcel.setStatus(shipmentEvent.getStatusCode());
-        parcel.setDelivered(getDeliveredDate(shipmentEvent));
-        parcel.setMessage(shipmentEvent.getDescription());
+    private void setShipmentEventDetails(DhlParcel parcel, ShipmentEvent event) {
+        parcel.setStatus(event.getStatusCode());
+        parcel.setDelivered(getDeliveredDate(event));
+        parcel.setMessage(event.getDescription());
     }
     
-    private Date getDeliveredDate(ShipmentEvent shipmentEvent) {
-        if ("delivered".equalsIgnoreCase(shipmentEvent.getStatus())) {
-            return shipmentEvent.getTimestamp();
+    private Date getDeliveredDate(ShipmentEvent event) {
+        if ("delivered".equalsIgnoreCase(event.getStatusCode())) {
+            return event.getTimestamp();
         }
         return null;
     }
