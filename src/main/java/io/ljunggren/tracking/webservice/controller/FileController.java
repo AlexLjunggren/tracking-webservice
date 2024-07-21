@@ -1,9 +1,5 @@
 package io.ljunggren.tracking.webservice.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -16,6 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.ljunggren.tracking.webservice.exception.BadRequestException;
+import io.ljunggren.tracking.webservice.model.ParsedCSV;
 import io.ljunggren.tracking.webservice.service.FileService;
 
 @RestController
@@ -27,13 +24,10 @@ public class FileController extends AbstractController {
     
     @CrossOrigin
     @PostMapping("/parse")
-    public ResponseEntity<String> parse(@RequestParam("file") MultipartFile multipartFile) throws JsonProcessingException {
+    public ResponseEntity<String> csv(@RequestParam("file") MultipartFile multipartFile) throws JsonProcessingException {
         try {
-            List<String> trackingNumbers = fileService.parse(multipartFile);
-            trackingNumbers = trackingNumbers.stream()
-                    .filter(trackingNumber -> !StringUtils.isBlank(trackingNumber))
-                    .collect(Collectors.toList());
-            return okResponse(trackingNumbers);
+            ParsedCSV parsedCSV = fileService.parse(multipartFile);
+            return okResponse(parsedCSV);
         } catch (BadRequestException e) {
             return badRequestResponse(e.getMessage());
         } catch (Exception e) {
