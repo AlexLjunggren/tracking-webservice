@@ -92,7 +92,7 @@ public class WebserviceProperties {
     }
     
     public static String getAnnouncementDirectory() {
-        return properties.getProperty("annoncemnet.directory");
+        return properties.getProperty("announcements.directory");
     }
     
 }
