@@ -33,9 +33,7 @@ import io.ljunggren.tracking.webservice.service.UpsService;
 import io.ljunggren.tracking.webservice.service.UspsService;
 import io.ljunggren.tracking.webservice.service.ValidationService;
 import io.ljunggren.tracking.webservice.service.WorkflowService;
-import io.ljunggren.tracking.webservice.util.DhlUtils;
-import io.ljunggren.tracking.webservice.util.FedexUtils;
-import io.ljunggren.tracking.webservice.util.UpsUtils;
+import io.ljunggren.tracking.webservice.util.TrackingNumberUtils;
 import io.ljunggren.tracking.webservice.workflow.WorkflowData;
 
 @RestController
@@ -98,9 +96,9 @@ public class TrackingController extends AbstractController {
             Class<? extends Parcel> clazz = getParcelClass(request.getService());
             List<Parcel> parcels = trackingService.parcelsFromArray(request.getTrackingNumbers(), clazz);
             WorkflowData data = WorkflowData.builder()
+                    .service(request.getService())
                     .email(request.getEmail())
                     .parcels(parcels)
-                    .filename(generateFilename(request.getService()))
                     .build();
             workflowService.asyncProcess(data);
             return okResponse();
@@ -147,20 +145,9 @@ public class TrackingController extends AbstractController {
     }
     
     private Service determineService(String trackingNumber) {
-        logger.info("Attempting to auto detect " + trackingNumber);
-        if (trackingNumber == null) {
-            return Service.UNKNOWN;
-        }
-        if (FedexUtils.isValidTrackingNumber(trackingNumber)) {
-            return Service.FEDEX;
-        }
-        if (UpsUtils.isValidTrackingNumber(trackingNumber)) {
-            return Service.UPS;
-        }
-        if (DhlUtils.isValidTrackingNumber(trackingNumber)) {
-            return Service.DHL;
-        }
-        return Service.UNKNOWN;
+        Service service = TrackingNumberUtils.getService(trackingNumber);
+        logger.info(String.format("%s service found for %s", service, trackingNumber));
+        return service;
     }
     
     private Class<? extends Parcel> getParcelClass(Service service) throws Exception {
@@ -173,8 +160,4 @@ public class TrackingController extends AbstractController {
         }
     }
     
-    private String generateFilename(Service service) {
-        return service.name().toLowerCase() + "-tracking.csv";
-    }
-
 }
