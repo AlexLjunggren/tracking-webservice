@@ -5,7 +5,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import io.ljunggren.tracking.webservice.workflow.EndChain;
-import io.ljunggren.tracking.webservice.workflow.GenerateCSV;
+import io.ljunggren.tracking.webservice.workflow.GenerateExcel;
 import io.ljunggren.tracking.webservice.workflow.GenerateFile;
 import io.ljunggren.tracking.webservice.workflow.ProcessDhl;
 import io.ljunggren.tracking.webservice.workflow.ProcessFedex;
@@ -35,7 +35,7 @@ public class WorkflowService {
     private ProcessDhl processDhl;
     
     @Autowired
-    private GenerateCSV generateCSV;
+    private GenerateExcel generateExcel;
     
     @Autowired
     private GenerateFile generateFile;
@@ -55,7 +55,7 @@ public class WorkflowService {
                     processUsps.nextChain(
                     processDhl.nextChain(
                     sanitizeParcels.nextChain(
-                    generateCSV.nextChain(
+                    generateExcel.nextChain(
                     generateFile.nextChain(
                     sendNotification.nextChain(
                     endChain
