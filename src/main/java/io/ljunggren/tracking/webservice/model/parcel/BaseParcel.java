@@ -1,8 +1,7 @@
 package io.ljunggren.tracking.webservice.model.parcel;
 
-import io.ljunggren.csvParser.annotation.CSVColumn;
+import io.ljunggren.reportGenerator.annotation.AutoSize;
 import io.ljunggren.reportGenerator.annotation.Reportable;
-import io.ljunggren.sanitizer.annotation.Accent;
 import io.ljunggren.sanitizer.annotation.Trim;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,17 +13,19 @@ import lombok.NoArgsConstructor;
 public class BaseParcel implements Parcel {
 
     @Trim
-    @CSVColumn("A")
+    @AutoSize
     @Reportable(headerName = "Tracking Number", column = "A")
     private String trackingNumber;
     
-    @Accent
+    @AutoSize
     @Reportable(headerName = "Service", column = "B")
     private String service;
 
+    @AutoSize
     @Reportable(headerName = "Status", column = "C")
     private String status;
     
+    @AutoSize
     @Reportable(headerName = "Message", column = "D")
     private String message;
 

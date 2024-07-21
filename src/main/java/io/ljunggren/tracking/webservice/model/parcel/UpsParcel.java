@@ -2,6 +2,7 @@ package io.ljunggren.tracking.webservice.model.parcel;
 
 import java.util.Date;
 
+import io.ljunggren.reportGenerator.annotation.AutoSize;
 import io.ljunggren.reportGenerator.annotation.DateFormatter;
 import io.ljunggren.reportGenerator.annotation.Reportable;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
 public class UpsParcel extends BaseParcel {
 
     @DateFormatter(format = "yyyy-MM-dd hh:mm aa")
+    @AutoSize
     @Reportable(headerName = "Delivered", column = "F")
     private Date delivered;
     
