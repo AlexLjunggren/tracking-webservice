@@ -1,7 +1,7 @@
 package io.ljunggren.tracking.webservice.model.parcel;
 
-import io.ljunggren.reportGenerator.annotation.AutoSize;
-import io.ljunggren.reportGenerator.annotation.Reportable;
+import io.ljunggren.report.generator.annotation.AutoSize;
+import io.ljunggren.report.generator.annotation.Reportable;
 import io.ljunggren.sanitizer.annotation.Trim;
 import lombok.AllArgsConstructor;
 import lombok.Data;

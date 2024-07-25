@@ -3,7 +3,7 @@ package io.ljunggren.tracking.webservice.workflow;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
 
-import io.ljunggren.reportGenerator.excel.ExcelGenerator;
+import io.ljunggren.report.generator.excel.ExcelGenerator;
 
 @Component
 public class GenerateExcel extends WorkflowChain {

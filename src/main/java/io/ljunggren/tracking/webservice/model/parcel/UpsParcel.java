@@ -2,9 +2,9 @@ package io.ljunggren.tracking.webservice.model.parcel;
 
 import java.util.Date;
 
-import io.ljunggren.reportGenerator.annotation.AutoSize;
-import io.ljunggren.reportGenerator.annotation.DateFormatter;
-import io.ljunggren.reportGenerator.annotation.Reportable;
+import io.ljunggren.report.generator.annotation.AutoSize;
+import io.ljunggren.report.generator.annotation.DateFormatter;
+import io.ljunggren.report.generator.annotation.Reportable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
