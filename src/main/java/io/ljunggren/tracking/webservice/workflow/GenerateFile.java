@@ -4,8 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.UUID;
 
 import org.apache.poi.ss.usermodel.Workbook;
 import org.springframework.stereotype.Component;
@@ -35,8 +34,8 @@ public class GenerateFile extends WorkflowChain {
     }
     
     private Path generateOutputPath(WorkflowData data) {
-        String date = new SimpleDateFormat("yyyyMMdd-HHmmss").format(new Date());
-        String generatedFilename = String.format("%s_%s-tracking.xlsx", date, data.getService().name().toLowerCase());
+        String uuid = UUID.randomUUID().toString();
+        String generatedFilename = String.format("%s-tracking_%s.xlsx", data.getService().name().toLowerCase(), uuid);
         return Paths.get(WebserviceProperties.getFileOutputDirectory(), generatedFilename);
     }
     
