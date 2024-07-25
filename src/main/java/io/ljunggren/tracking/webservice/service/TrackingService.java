@@ -43,7 +43,7 @@ public abstract class TrackingService {
     
     public <T> T parcelFromString(String trackingNumber, Class<T> clazz) {
         T t = newInstance(clazz);
-        ((Parcel) t).setTrackingNumber(trackingNumber);
+        ((Parcel) t).setTrackingNumber(trackingNumber.trim());
         return t;
     }
     
