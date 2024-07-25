@@ -12,7 +12,7 @@
 
 	<groupId>io.ljunggren.tracking</groupId>
 	<artifactId>tracking-webservice</artifactId>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.4-SNAPSHOT</version>
 	<packaging>war</packaging>
 
 	<name>Tracking Webservice</name>
@@ -76,6 +76,11 @@
 		<dependency>
 			<groupId>io.ljunggren</groupId>
 			<artifactId>csv-parser</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>ljunggren.io</groupId>
+			<artifactId>excel-parser</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
