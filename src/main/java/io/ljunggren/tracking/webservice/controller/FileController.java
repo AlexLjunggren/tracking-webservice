@@ -12,8 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
 import io.ljunggren.tracking.webservice.exception.BadRequestException;
-import io.ljunggren.tracking.webservice.model.ParsedCSV;
 import io.ljunggren.tracking.webservice.service.FileService;
+import ljunggren.io.excel.parser.model.SimpleWorkbook;
 
 @RestController
 @RequestMapping("/api/file")
@@ -24,10 +24,10 @@ public class FileController extends AbstractController {
     
     @CrossOrigin
     @PostMapping("/parse")
-    public ResponseEntity<String> csv(@RequestParam("file") MultipartFile multipartFile) throws JsonProcessingException {
+    public ResponseEntity<String> parse(@RequestParam("file") MultipartFile multipartFile) throws JsonProcessingException {
         try {
-            ParsedCSV parsedCSV = fileService.parse(multipartFile);
-            return okResponse(parsedCSV);
+            SimpleWorkbook workbook = fileService.parse(multipartFile);
+            return okResponse(workbook);
         } catch (BadRequestException e) {
             return badRequestResponse(e.getMessage());
         } catch (Exception e) {

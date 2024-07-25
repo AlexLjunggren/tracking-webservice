@@ -1,36 +1,50 @@
 package io.ljunggren.tracking.webservice.service;
 
 import java.io.File;
-import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.ljunggren.csvParser.Parser;
-import io.ljunggren.tracking.webservice.model.ParsedCSV;
+import io.ljunggren.tracking.webservice.exception.BadRequestException;
+import io.ljunggren.tracking.webservice.util.CSVUtils;
 import io.ljunggren.tracking.webservice.util.FileUtils;
+import ljunggren.io.excel.parser.Parser;
+import ljunggren.io.excel.parser.model.SimpleWorkbook;
 
 @Service
 public class FileService {
+    
+    private static Logger logger = LoggerFactory.getLogger(FileService.class);
 
-    public ParsedCSV parse(MultipartFile multipartFile) throws Exception {
+    public SimpleWorkbook parse(MultipartFile multipartFile) throws Exception {
         File file = null;
         try {
             file = FileUtils.convertToFile(multipartFile);
-            Parser parser = new Parser().firstRowIsHeader();
-            List<String> headers = parser.parseHeaders(file);
-            List<List<String>> data = parser.parse(file);
-            return ParsedCSV.builder()
-                    .headers(headers)
-                    .data(data)
-                    .build();
-        } catch (Exception e) {
-            throw new Exception("Unable to parse CSV");
+            String fileExtension = FileUtils.getFileExtension(file).toLowerCase();
+            switch (fileExtension) {
+            case "csv": 
+                return parseCSV(file);
+            case "xlsx":
+                return parseExcel(file);
+            default:
+                logger.warn(String.format("Attempted to parse %s file", fileExtension));
+                throw new BadRequestException(String.format("Application does not support %s file type", fileExtension));
+            }
         } finally {
             if (file != null) {
                 file.delete();
             }
         }
+    }
+    
+    private SimpleWorkbook parseCSV(File file) throws Exception {
+        return CSVUtils.csvToWorkbook(file);
+    }
+    
+    private SimpleWorkbook parseExcel(File file) throws Exception {
+        return new Parser().firstRowIsHeader().parse(file);
     }
     
 }
