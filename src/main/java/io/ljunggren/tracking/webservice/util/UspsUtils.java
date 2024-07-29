@@ -6,7 +6,7 @@ public class UspsUtils {
         if (trackingNumber == null) {
             return false;
         }
-        if (trackingNumber.matches("^[0-9]{20}$")) {
+        if (trackingNumber.matches("^[0-9]{22}$")) {
             return true;
         }
         return false;
